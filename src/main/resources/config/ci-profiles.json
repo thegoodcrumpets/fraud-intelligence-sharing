@@ -1,0 +1,41 @@
+[
+  {
+    "profileId": "BANKING_FRAUD_INTELLIGENCE_V1",
+    "context": "Interbank fraud prevention under PSD3/GDPR constraints",
+    "permittedSenders": ["bank-a", "bank-b", "bank-c"],
+    "permittedReceivers": ["bank-a", "bank-b", "bank-c"],
+    "permittedSubjectCategories": ["BANK_CUSTOMER", "PAYMENT_ACCOUNT"],
+    "permittedInformationTypes": [
+      "ACCOUNT_TOKEN",
+      "CUSTOMER_TOKEN",
+      "DEVICE_FINGERPRINT_TOKEN",
+      "FRAUD_RISK_SCORE",
+      "STOLEN_DEVICE_FLAG",
+      "PASSWORD_RESET_RECENCY",
+      "VELOCITY_LEVEL",
+      "COUNTERPARTY_ACCOUNT_TOKEN"
+    ],
+    "permittedTransmissionPrinciples": ["PSD3_FRAUD_PREVENTION", "GDPR_ART_6_1_F_LEGITIMATE_INTEREST"],
+    "permittedPurposes": ["fraud_prevention", "fraud_investigation"],
+    "maxRetentionDays": 90,
+    "onwardSharingAllowed": false
+  },
+  {
+    "profileId": "PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1",
+    "context": "Cross-sector fraud prevention profile for public payout fraud screening",
+    "permittedSenders": ["bank-a", "bank-c"],
+    "permittedReceivers": ["utbetalningsmyndigheten"],
+    "permittedSubjectCategories": ["BENEFIT_APPLICANT", "PAYMENT_ACCOUNT"],
+    "permittedInformationTypes": [
+      "ACCOUNT_TOKEN",
+      "CUSTOMER_TOKEN",
+      "FRAUD_RISK_SCORE",
+      "STOLEN_DEVICE_FLAG",
+      "VELOCITY_LEVEL"
+    ],
+    "permittedTransmissionPrinciples": ["PUBLIC_PAYOUT_FRAUD_PREVENTION", "GDPR_ART_6_1_E_PUBLIC_TASK"],
+    "permittedPurposes": ["public_payout_fraud_prevention"],
+    "maxRetentionDays": 30,
+    "onwardSharingAllowed": false
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "scenarioId": "BANK-BASE",
+    "basePayload": "BANK_BASE",
+    "deviationType": "NONE",
+    "expectedDecision": "ACCEPTED",
+    "expectedRejectionCode": null
+  },
+  {
+    "scenarioId": "CROSS-BASE",
+    "basePayload": "CROSS_BASE",
+    "deviationType": "NONE",
+    "expectedDecision": "ACCEPTED",
+    "expectedRejectionCode": null
+  },
+  {
+    "scenarioId": "DEV-1",
+    "basePayload": "BANK_BASE",
+    "deviationType": "RAW_IDENTIFIER_LEAKAGE",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "RAW_IDENTIFIER_LEAKAGE"
+  },
+  {
+    "scenarioId": "DEV-2",
+    "basePayload": "BANK_BASE",
+    "deviationType": "PROFILE_DISALLOWED_FIELD",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "CI_INFORMATION_TYPE_DISALLOWED"
+  },
+  {
+    "scenarioId": "DEV-3A",
+    "basePayload": "BANK_BASE",
+    "deviationType": "UNSUPPORTED_SCHEMA_VERSION",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "UNSUPPORTED_SCHEMA_VERSION"
+  },
+  {
+    "scenarioId": "DEV-3B",
+    "basePayload": "BANK_BASE",
+    "deviationType": "UNDECLARED_FIELD_ADDITION",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "UNDECLARED_FIELD"
+  },
+  {
+    "scenarioId": "DEV-4",
+    "basePayload": "BANK_BASE",
+    "deviationType": "RECEIVER_PROFILE_MISMATCH",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "RECEIVER_PROFILE_MISMATCH"
+  },
+  {
+    "scenarioId": "DEV-5",
+    "basePayload": "BANK_BASE",
+    "deviationType": "INCOMPATIBLE_POLICY_METADATA",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "POLICY_PURPOSE_DISALLOWED"
+  },
+  {
+    "scenarioId": "DEV-6",
+    "basePayload": "BANK_C_TO_BANK_B_BASE",
+    "deviationType": "PROPERTY_AUTHORISATION_FAILURE",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "PROPERTY_AUTHORISATION_FAILURE"
+  },
+  {
+    "scenarioId": "DEV-7",
+    "basePayload": "CROSS_BASE",
+    "deviationType": "CROSS_SECTOR_OVER_SHARING",
+    "expectedDecision": "REJECTED",
+    "expectedRejectionCode": "CI_INFORMATION_TYPE_DISALLOWED"
+  }
+]

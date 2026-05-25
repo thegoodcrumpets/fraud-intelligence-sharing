@@ -1,0 +1,30 @@
+[
+  {
+    "participantId": "bank-a",
+    "displayName": "Bank A",
+    "participantType": "BANK",
+    "enabled": true,
+    "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1", "PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
+  },
+  {
+    "participantId": "bank-b",
+    "displayName": "Bank B",
+    "participantType": "BANK",
+    "enabled": true,
+    "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1"]
+  },
+  {
+    "participantId": "bank-c",
+    "displayName": "Bank C",
+    "participantType": "BANK",
+    "enabled": true,
+    "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1", "PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
+  },
+  {
+    "participantId": "utbetalningsmyndigheten",
+    "displayName": "Utbetalningsmyndigheten",
+    "participantType": "PUBLIC_AGENCY",
+    "enabled": true,
+    "allowedProfileIds": ["PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
+  }
+]
