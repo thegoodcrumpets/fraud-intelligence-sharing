@@ -1,0 +1,118 @@
+name: thesis-fraud-simulation
+
+x-node-common: &node-common
+  build:
+    context: .
+    dockerfile: Dockerfile.jvm
+  image: thesis-fraud-node:latest
+  environment:
+    QUARKUS_HTTP_PORT: 8080
+    CONTROL_SCHEMA_VERSION_ENABLED: "true"
+    CONTROL_RAW_IDENTIFIER_ENABLED: "true"
+    CONTROL_CI_PROFILE_ENABLED: "true"
+    CONTROL_POLICY_ENABLED: "true"
+    CONTROL_PROPERTY_AUTHORISATION_ENABLED: "true"
+  networks:
+    - thesis-net
+
+services:
+  bank-a:
+    <<: *node-common
+    container_name: bank-a-node
+    environment:
+      QUARKUS_HTTP_PORT: 8080
+      NODE_ID: bank-a
+      NODE_PROFILE_ID: BANKING_V1
+      AUDIT_FILE: /work/audit/current/bank-a-audit.jsonl
+      CONTROL_SCHEMA_VERSION_ENABLED: "true"
+      CONTROL_RAW_IDENTIFIER_ENABLED: "true"
+      CONTROL_CI_PROFILE_ENABLED: "true"
+      CONTROL_POLICY_ENABLED: "true"
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "true"
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./audit:/work/audit
+
+  bank-b:
+    <<: *node-common
+    container_name: bank-b-node
+    environment:
+      QUARKUS_HTTP_PORT: 8080
+      NODE_ID: bank-b
+      NODE_PROFILE_ID: BANKING_V1
+      AUDIT_FILE: /work/audit/current/bank-b-audit.jsonl
+      CONTROL_SCHEMA_VERSION_ENABLED: "true"
+      CONTROL_RAW_IDENTIFIER_ENABLED: "true"
+      CONTROL_CI_PROFILE_ENABLED: "true"
+      CONTROL_POLICY_ENABLED: "true"
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "true"
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./audit:/work/audit
+
+  bank-c:
+    <<: *node-common
+    container_name: bank-c-node
+    environment:
+      QUARKUS_HTTP_PORT: 8080
+      NODE_ID: bank-c
+      NODE_PROFILE_ID: BANKING_V1
+      AUDIT_FILE: /work/audit/current/bank-c-audit.jsonl
+      CONTROL_SCHEMA_VERSION_ENABLED: "true"
+      CONTROL_RAW_IDENTIFIER_ENABLED: "true"
+      CONTROL_CI_PROFILE_ENABLED: "true"
+      CONTROL_POLICY_ENABLED: "true"
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "true"
+    ports:
+      - "8083:8080"
+    volumes:
+      - ./audit:/work/audit
+
+  utbetalningsmyndigheten:
+    <<: *node-common
+    container_name: utbetalningsmyndigheten-node
+    environment:
+      QUARKUS_HTTP_PORT: 8080
+      NODE_ID: utbetalningsmyndigheten
+      NODE_PROFILE_ID: PUBLIC_SECTOR_V1
+      AUDIT_FILE: /work/audit/current/utbetalningsmyndigheten-audit.jsonl
+      CONTROL_SCHEMA_VERSION_ENABLED: "true"
+      CONTROL_RAW_IDENTIFIER_ENABLED: "true"
+      CONTROL_CI_PROFILE_ENABLED: "true"
+      CONTROL_POLICY_ENABLED: "true"
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "true"
+    ports:
+      - "8084:8080"
+    volumes:
+      - ./audit:/work/audit
+
+  test-runner:
+    image: curlimages/curl:8.10.1
+    container_name: thesis-test-runner
+    depends_on:
+      - bank-a
+      - bank-b
+      - bank-c
+      - utbetalningsmyndigheten
+    networks:
+      - thesis-net
+    volumes:
+      - ./results:/results
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "
+      echo 'Waiting for simulation endpoint...' &&
+      until curl -sf http://bank-a:8080/simulation/scenarios > /dev/null; do sleep 1; done &&
+      echo 'Running simulation...' &&
+      curl -sS -X POST http://bank-a:8080/simulation/run
+      -H 'Content-Type: application/json'
+      | tee /results/simulation-result.json
+      "
+    profiles:
+      - test
+
+networks:
+  thesis-net:
+    driver: bridge
