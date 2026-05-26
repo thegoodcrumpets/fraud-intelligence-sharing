@@ -1,0 +1,16 @@
+services:
+  bank-a:
+    environment:
+      CONTROL_RAW_IDENTIFIER_ENABLED: "false"
+
+  bank-b:
+    environment:
+      CONTROL_RAW_IDENTIFIER_ENABLED: "false"
+
+  bank-c:
+    environment:
+      CONTROL_RAW_IDENTIFIER_ENABLED: "false"
+
+  utbetalningsmyndigheten:
+    environment:
+      CONTROL_RAW_IDENTIFIER_ENABLED: "false"

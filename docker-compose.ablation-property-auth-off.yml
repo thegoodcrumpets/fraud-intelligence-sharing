@@ -1,0 +1,16 @@
+services:
+  bank-a:
+    environment:
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "false"
+
+  bank-b:
+    environment:
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "false"
+
+  bank-c:
+    environment:
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "false"
+
+  utbetalningsmyndigheten:
+    environment:
+      CONTROL_PROPERTY_AUTHORISATION_ENABLED: "false"

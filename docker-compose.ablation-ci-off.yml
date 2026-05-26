@@ -1,0 +1,16 @@
+services:
+  bank-a:
+    environment:
+      CONTROL_CI_PROFILE_ENABLED: "false"
+
+  bank-b:
+    environment:
+      CONTROL_CI_PROFILE_ENABLED: "false"
+
+  bank-c:
+    environment:
+      CONTROL_CI_PROFILE_ENABLED: "false"
+
+  utbetalningsmyndigheten:
+    environment:
+      CONTROL_CI_PROFILE_ENABLED: "false"
