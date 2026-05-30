@@ -4,6 +4,7 @@
     "displayName": "Bank A",
     "participantType": "BANK",
     "enabled": true,
+    "nodeUrl": "http://bank-a:8080/fraud-intelligence/events",
     "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1", "PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
   },
   {
@@ -11,6 +12,7 @@
     "displayName": "Bank B",
     "participantType": "BANK",
     "enabled": true,
+    "nodeUrl": "http://bank-b:8080/fraud-intelligence/events",
     "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1"]
   },
   {
@@ -18,6 +20,7 @@
     "displayName": "Bank C",
     "participantType": "BANK",
     "enabled": true,
+    "nodeUrl": "http://bank-c:8080/fraud-intelligence/events",
     "allowedProfileIds": ["BANKING_FRAUD_INTELLIGENCE_V1", "PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
   },
   {
@@ -25,6 +28,7 @@
     "displayName": "Utbetalningsmyndigheten",
     "participantType": "PUBLIC_AGENCY",
     "enabled": true,
+    "nodeUrl": "http://utbetalningsmyndigheten:8080/fraud-intelligence/events",
     "allowedProfileIds": ["PUBLIC_SECTOR_FRAUD_INTELLIGENCE_V1"]
   }
 ]

@@ -7,6 +7,7 @@ public class Scenario {
     public String scenarioId;
     public String basePayload;
     public DeviationType deviationType;
+    public String targetParticipantId;
     public DecisionStatus expectedDecision;
     public RejectionCode expectedRejectionCode;
 

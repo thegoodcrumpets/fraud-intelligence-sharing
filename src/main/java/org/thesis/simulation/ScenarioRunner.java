@@ -2,7 +2,8 @@ package org.thesis.simulation;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.thesis.api.InboundEventService;
+import org.thesis.directory.Participant;
+import org.thesis.directory.ParticipantDirectory;
 import org.thesis.model.FraudIntelligenceEvent;
 import org.thesis.model.ValidationResponse;
 
@@ -23,7 +24,10 @@ public class ScenarioRunner {
     DeviationInjector deviationInjector;
 
     @Inject
-    InboundEventService inboundEventService;
+    ParticipantDirectory participantDirectory;
+
+    @Inject
+    ReceiverNodeClient receiverNodeClient;
 
     public List<ScenarioRunResult> runAll() {
         List<ScenarioRunResult> results = new ArrayList<>();
@@ -34,20 +38,41 @@ public class ScenarioRunner {
     }
 
     public ScenarioRunResult run(Scenario scenario) {
-        FraudIntelligenceEvent base = basePayloadFactory.create(scenario.basePayload);
-        String payload = deviationInjector.toJsonWithDeviation(base, scenario.deviationType);
-        ValidationResponse response = inboundEventService.receiveRaw(payload, null);
-
         ScenarioRunResult result = new ScenarioRunResult();
         result.scenarioId = scenario.scenarioId;
         result.deviationType = scenario.deviationType;
+        result.targetParticipantId = scenario.targetParticipantId;
         result.expectedDecision = scenario.expectedDecision;
         result.expectedRejectionCode = scenario.expectedRejectionCode;
-        result.actualDecision = response.decision;
-        result.actualRejectionCode = response.rejectionCode;
-        result.response = response;
-        result.passed = scenario.expectedDecision == response.decision
-                && Objects.equals(scenario.expectedRejectionCode, response.rejectionCode);
-        return result;
+
+        try {
+            FraudIntelligenceEvent base = basePayloadFactory.create(scenario.basePayload);
+            String payload = deviationInjector.toJsonWithDeviation(base, scenario.deviationType);
+
+            Participant target = participantDirectory.find(scenario.targetParticipantId)
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Unknown target participant: " + scenario.targetParticipantId
+                    ));
+
+            if (target.nodeUrl == null || target.nodeUrl.isBlank()) {
+                throw new IllegalStateException("Participant has no nodeUrl: " + target.participantId);
+            }
+
+            result.targetNodeUrl = target.nodeUrl;
+
+            ValidationResponse response = receiverNodeClient.post(target.nodeUrl, payload);
+
+            result.actualDecision = response.decision;
+            result.actualRejectionCode = response.rejectionCode;
+            result.response = response;
+            result.passed = scenario.expectedDecision == response.decision
+                    && Objects.equals(scenario.expectedRejectionCode, response.rejectionCode);
+
+            return result;
+        } catch (RuntimeException e) {
+            result.transportError = e.getMessage();
+            result.passed = false;
+            return result;
+        }
     }
 }

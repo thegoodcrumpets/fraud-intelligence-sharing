@@ -8,6 +8,7 @@ public class Participant {
     public String displayName;
     public String participantType;
     public Boolean enabled;
+    public String nodeUrl;
     public List<String> allowedProfileIds = new ArrayList<>();
 
     public Participant() {
