@@ -1,0 +1,14 @@
+mvn clean package -DskipTests
+docker compose build
+
+docker compose down
+rm -f results/simulation-result.json
+rm -f audit/current/*.jsonl
+docker compose up -d bank-a bank-b bank-c utbetalningsmyndigheten
+docker compose --profile test run --rm test-runner
+
+run_ablation "ci-off" "docker-compose.ablation-ci-off.yml"
+run_ablation "policy-off" "docker-compose.ablation-policy-off.yml"
+run_ablation "property-auth-off" "docker-compose.ablation-property-auth-off.yml"
+run_ablation "raw-identifier-off" "docker-compose.ablation-raw-identifier-off.yml"
+run_ablation "schema-version-off" "docker-compose.ablation-schema-version-off.yml"

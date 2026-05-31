@@ -1,0 +1,15 @@
+{
+  "auditId": "64c4320e-a0fa-4b0d-b289-1f227704f17d",
+  "ciParameter": "NONE",
+  "ciProfileId": "BANKING_FRAUD_INTELLIGENCE_V1",
+  "decision": "ACCEPTED",
+  "doraImpactCategory": "CONFIDENTIALITY_INTEGRITY_RELEVANT",
+  "eventId": "evt-bank-base-001",
+  "message": "Accepted",
+  "nodeId": "bank-b",
+  "payloadDigest": "sha256:74e47f8beed534ce46a648d53c43dbadf1f109a35a253684dd2a7768cec0363c",
+  "receiverInstitutionId": "bank-b",
+  "schemaVersion": "fraud-intelligence-event-v1",
+  "senderInstitutionId": "bank-a",
+  "timestamp": "2026-05-27T12:03:19.962910606Z"
+}

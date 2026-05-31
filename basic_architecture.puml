@@ -1,0 +1,48 @@
+@startuml
+title End-to-end validation flow for fraud-intelligence exchange
+
+start
+
+partition "Sender institution node" {
+  :Create fraud-intelligence payload;
+  :Pseudonymise identifiers;
+  :Attach policy metadata;
+
+  group "Internal validation gateway" {
+    :Validate CI profile;
+    :Validate schema version;
+    :Apply property-level filtering;
+  }
+
+  if (Sender-side validation passed?) then (yes)
+    :Write sender validation and dispatch telemetry;
+    :Transmit payload to receiver;
+  else (no)
+    :Write sender rejection telemetry;
+    :Reject before transmission;
+    stop
+  endif
+}
+
+partition "Receiver institution node" {
+  :Receive payload;
+
+  group "Internal validation gateway" {
+    :Validate sender and endpoint;
+    :Validate schema version;
+    :Validate policy metadata;
+    :Validate receiver CI profile;
+    :Apply object and property-level authorisation;
+  }
+
+  if (Receiver-side validation passed?) then (yes)
+    :Accept payload;
+    :Write receiver acceptance telemetry;
+  else (no)
+    :Reject payload;
+    :Write receiver rejection telemetry;
+  endif
+}
+
+stop
+@enduml

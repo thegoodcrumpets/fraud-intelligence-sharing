@@ -1,0 +1,13 @@
+audit_file	rows
+network-ablation-ci-off-bank-b-audit.jsonl	7
+network-ablation-ci-off-utbetalningsmyndigheten-audit.jsonl	3
+network-ablation-policy-off-bank-b-audit.jsonl	7
+network-ablation-policy-off-utbetalningsmyndigheten-audit.jsonl	3
+network-ablation-property-auth-off-bank-b-audit.jsonl	7
+network-ablation-property-auth-off-utbetalningsmyndigheten-audit.jsonl	3
+network-ablation-raw-identifier-off-bank-b-audit.jsonl	7
+network-ablation-raw-identifier-off-utbetalningsmyndigheten-audit.jsonl	3
+network-ablation-schema-version-off-bank-b-audit.jsonl	7
+network-ablation-schema-version-off-utbetalningsmyndigheten-audit.jsonl	3
+network-baseline-bank-b-audit.jsonl	7
+network-baseline-utbetalningsmyndigheten-audit.jsonl	3

@@ -1,0 +1,7 @@
+file	scenario	expected_code	actual_code	actual_decision
+network-ablation-ci-off.json	DEV-2	CI_INFORMATION_TYPE_DISALLOWED	PROPERTY_AUTHORISATION_FAILURE	REJECTED
+network-ablation-ci-off.json	DEV-7	CI_INFORMATION_TYPE_DISALLOWED	PROPERTY_AUTHORISATION_FAILURE	REJECTED
+network-ablation-policy-off.json	DEV-5	POLICY_PURPOSE_DISALLOWED	NONE	ACCEPTED
+network-ablation-property-auth-off.json	DEV-6	PROPERTY_AUTHORISATION_FAILURE	NONE	ACCEPTED
+network-ablation-raw-identifier-off.json	DEV-1	RAW_IDENTIFIER_LEAKAGE	PROPERTY_AUTHORISATION_FAILURE	REJECTED
+network-ablation-schema-version-off.json	DEV-3A	UNSUPPORTED_SCHEMA_VERSION	NONE	ACCEPTED
