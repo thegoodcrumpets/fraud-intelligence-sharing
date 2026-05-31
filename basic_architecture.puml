@@ -7,11 +7,15 @@ partition "Sender institution node" {
   :Create fraud-intelligence payload;
   :Pseudonymise identifiers;
   :Attach policy metadata;
+  :Resolve receiver context and endpoint;
 
   group "Internal validation gateway" {
-    :Validate CI profile;
     :Validate schema version;
-    :Apply property-level filtering;
+    :Reject undeclared or unsupported fields;
+    :Check for raw identifier leakage;
+    :Validate CI profile;
+    :Validate policy metadata;
+    :Validate object and property-level authorisation;
   }
 
   if (Sender-side validation passed?) then (yes)
@@ -30,17 +34,19 @@ partition "Receiver institution node" {
   group "Internal validation gateway" {
     :Validate sender and endpoint;
     :Validate schema version;
-    :Validate policy metadata;
+    :Reject undeclared or unsupported fields;
+    :Check for raw identifier leakage;
     :Validate receiver CI profile;
-    :Apply object and property-level authorisation;
+    :Validate policy metadata;
+    :Validate object and property-level authorisation;
   }
 
   if (Receiver-side validation passed?) then (yes)
-    :Accept payload;
     :Write receiver acceptance telemetry;
+    :Accept payload;
   else (no)
-    :Reject payload;
     :Write receiver rejection telemetry;
+    :Reject payload;
   endif
 }
 
