@@ -1,5 +1,5 @@
 @startuml
-title End-to-end validation flow for fraud-intelligence exchange
+title Sender validation flow for fraud-intelligence exchange
 
 start
 
@@ -28,27 +28,6 @@ partition "Sender institution node" {
   endif
 }
 
-partition "Receiver institution node" {
-  :Receive payload;
-
-  group "Internal validation gateway" {
-    :Validate sender and endpoint;
-    :Validate schema version;
-    :Reject undeclared or unsupported fields;
-    :Check for raw identifier leakage;
-    :Validate receiver CI profile;
-    :Validate policy metadata;
-    :Validate object and property-level authorisation;
-  }
-
-  if (Receiver-side validation passed?) then (yes)
-    :Write receiver acceptance telemetry;
-    :Accept payload;
-  else (no)
-    :Write receiver rejection telemetry;
-    :Reject payload;
-  endif
-}
 
 stop
 @enduml
